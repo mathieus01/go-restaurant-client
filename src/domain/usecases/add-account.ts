@@ -9,9 +9,8 @@ export namespace AddAccount {
     name: string
     email: string
     password: string
+    passwordConfirmation: string
     isRestaurant: boolean
-    description?: string
-    address?: string
   }
 
   export type Model = AccountModel
