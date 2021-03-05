@@ -22,6 +22,15 @@ module.exports = merge(common, {
       }, {
         loader: 'sass-loader'
       }]
+    }, {
+      test: /\.svg$/,
+      loader: 'url-loader'
+    }, {
+      test: /\.(png|jpe?g|gif|jp2|webp)$/,
+      loader: 'file-loader',
+      options: {
+        name: 'images/[name].[ext]'
+      }
     }]
   },
   devtool: 'inline-source-map',
