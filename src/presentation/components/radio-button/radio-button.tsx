@@ -25,7 +25,7 @@ const RadioButton: React.FC<Props> = (props: Props) => {
           ref={inputRef}
           title={error}
           onChange={e => { setState({ ...state, [e.target.name]: e.target.value }) }}
-          checked={props.name === state.isRestaurant}
+          checked={props.value === state.isRestaurant}
         />
         {props.placeholder}
       </label>
