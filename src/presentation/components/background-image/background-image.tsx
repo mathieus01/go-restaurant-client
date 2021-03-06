@@ -1,6 +1,6 @@
 import React from 'react'
 import Styles from './background-image-styles.scss'
-import backImg from '@/presentation/assets/fundo.jpg'
+import backImg from '../../assets/fundo.jpg'
 
 const BackgroundImage: React.FC = () => {
   return (
