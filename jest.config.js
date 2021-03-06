@@ -8,6 +8,7 @@ module.exports = {
     '!**/*.d.ts'
   ],
   coverageDirectory: 'coverage',
+  setupFilesAfterEnv: ['<rootDir>/src/main/config/jest-setup.ts'],
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
@@ -18,6 +19,7 @@ module.exports = {
   },
   moduleNameMapper: {
     '@/(.*)': '<rootDir>/src/$1',
-    '\\.scss$': 'identity-obj-proxy'
+    '\\.scss$': 'identity-obj-proxy',
+    '^.+.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub'
   }
 }
