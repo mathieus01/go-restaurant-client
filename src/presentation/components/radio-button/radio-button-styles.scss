@@ -1,0 +1,12 @@
+@import "../../styles/colors.scss";
+
+.radioButtonWrap {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: $black;
+
+  input {
+    margin-right: 5px;
+  }
+}

@@ -1,0 +1,32 @@
+@import "../../styles/colors.scss";
+
+.backgroundImageWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: $primaryDisabled;
+
+
+  img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+@media only screen and (max-width: 768px){
+  .backgroundImageWrap {
+    img{
+      border-bottom-right-radius: 30%;
+      border-top-left-radius: 30%;
+    }
+  }
+}
+@media only screen and (max-width: 668px){
+  .backgroundImageWrap {
+    border-bottom-left-radius: 30%;
+    border-bottom-right-radius: 30%;
+    height: 30%;
+  }
+}
