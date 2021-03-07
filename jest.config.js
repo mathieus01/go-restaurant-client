@@ -3,9 +3,8 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{ts,tsx}',
     '!<rootDir>/src/main/**/*',
-    '!<rootDir>/src/domain/usecases/index.ts',
-    '!<rootDir>/src/domain/models/index.ts',
-    '!**/*.d.ts'
+    '!**/*.d.ts',
+    '!**/index.ts'
   ],
   coverageDirectory: 'coverage',
   setupFilesAfterEnv: ['<rootDir>/src/main/config/jest-setup.ts'],
