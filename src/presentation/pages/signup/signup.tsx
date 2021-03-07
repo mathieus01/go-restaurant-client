@@ -79,7 +79,7 @@ const SignUp: React.FC<Props> = ({ validation, addAccount }: Props) => {
               <RadioButton type="radio" name="isRestaurant" value="true" placeholder="Restaurante" />
             </div>
             <button type="submit" data-testid="submit" disabled={state.isFormInvalid}>Cadastrar</button>
-            <Link to='/login' className={Styles.link}>Fazer login</Link>
+            <Link to='/login' data-testid="login-link" className={Styles.link}>Fazer login</Link>
             <FormStatus />
           </form>
         </FormContext.Provider>
