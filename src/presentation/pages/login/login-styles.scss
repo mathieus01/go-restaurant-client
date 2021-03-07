@@ -1,8 +1,7 @@
 @import "../../styles/colors.scss";
 
-.signupWrap {
+.loginWrap {
   display: flex;
-  flex-direction: row;
   height: 100vh;
 
   .formWrap {
@@ -12,7 +11,7 @@
     width: 778px;
     height: 100%;
 
-    .form{
+    .form {
       display: flex;
       flex-direction: column;
       align-self: center;
@@ -20,19 +19,10 @@
       width: 100%;
       color: $black;
 
-
       h2 {
         color: $black;
         font-size: 34px;
         font-weight: 600;
-      }
-
-
-      .isRestaurant {
-        display: flex;
-        justify-content: space-evenly;
-        width: 100%;
-        margin-top: 20px;
       }
 
       button {
@@ -54,9 +44,8 @@
     }
   }
 }
-
 @media only screen and (max-width: 768px){
-  .signupWrap {
+  .loginWrap {
     .formWrap {
       .form{
         padding: 35px;
@@ -65,7 +54,7 @@
   }
 }
 @media only screen and (max-width: 668px){
-  .signupWrap {
+  .loginWrap {
     flex-direction: column;
 
     .formWrap {
@@ -77,6 +66,10 @@
 
       .form {
         padding: 0 20px;
+
+        button {
+          margin-top: 30px;
+        }
       }
     }
   }

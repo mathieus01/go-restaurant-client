@@ -4,7 +4,7 @@ import { BackgroundImage, FormStatus, Input, RadioButton } from '@/presentation/
 import { FormContext, ApiContext } from '@/presentation/contexts'
 import { Validation } from '@/presentation/protocols'
 import { AddAccount } from '@/domain/usecases'
-import { useHistory } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 
 type Props = {
   validation: Validation
@@ -79,6 +79,7 @@ const SignUp: React.FC<Props> = ({ validation, addAccount }: Props) => {
               <RadioButton type="radio" name="isRestaurant" value="true" placeholder="Restaurante" />
             </div>
             <button type="submit" data-testid="submit" disabled={state.isFormInvalid}>Cadastrar</button>
+            <Link to='/login' data-testid="login-link" className={Styles.link}>Fazer login</Link>
             <FormStatus />
           </form>
         </FormContext.Provider>
