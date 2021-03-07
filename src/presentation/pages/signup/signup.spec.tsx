@@ -164,11 +164,18 @@ describe('SignUp Component', () => {
     expect(screen.getByTestId('main-error')).toHaveTextContent(error.message)
     expect(screen.getByTestId('error-wrap').children).toHaveLength(1)
   })
-  test('Should call SaveAccessToken on success', async () => {
+  test('Should call setCurrentAccount on success', async () => {
     const { addAccountSpy, setCurrentAccountMock } = makeSut()
     await simulateValidSubmit()
     expect(setCurrentAccountMock).toHaveBeenCalledWith(addAccountSpy.account)
     expect(history.length).toBe(1)
     expect(history.location.pathname).toBe('/')
+  })
+  test('Should go to signup page', () => {
+    makeSut()
+    const signupLink = screen.getByTestId('login-link')
+    fireEvent.click(signupLink)
+    expect(history.length).toBe(2)
+    expect(history.location.pathname).toBe('/login')
   })
 })
