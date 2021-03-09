@@ -8,7 +8,7 @@ export const mockHttpRequest = (): HttpRequest => ({
   headers: faker.random.objectElement()
 })
 
-export class HttpClientSpy<R> implements HttpClient<R> {
+export class HttpClientSpy<R = any> implements HttpClient<R> {
   url?: string
   method?: string
   body?: any
