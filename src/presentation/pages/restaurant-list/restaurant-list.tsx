@@ -6,6 +6,7 @@ import { LoadRestaurants } from '@/domain/usecases'
 import { AccessDeniedError } from '@/domain/errors'
 import { useHistory } from 'react-router-dom'
 import Styles from './restaurant-list-styles.scss'
+import { useErrorHandler } from '@/presentation/hooks'
 
 type Props = {
   loadRestaurants: LoadRestaurants
@@ -26,14 +27,9 @@ const RestaurantList: React.FC<Props> = ({ loadRestaurants }: Props) => {
       .catch(handleError)
   }, [state.reload])
 
-  const handleError = (error: Error): void => {
-    if (error instanceof AccessDeniedError) {
-      setCurrentAccount(undefined)
-      history.replace('/login')
-    } else {
-      setState(old => ({ ...old, error: error.message }))
-    }
-  }
+  const handleError = useErrorHandler((error: Error) => {
+    setState(old => ({ ...old, error: error.message }))
+  })
 
   const reload = (): void => {
     setState(old => ({ restaurants: [], error: '', reload: !old.reload }))
