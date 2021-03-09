@@ -1,0 +1,19 @@
+
+.listWrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 1.4rem;
+  list-style-type: none;
+}
+
+@media only screen and (max-width: 1200px){
+  .listWrap {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 767px){
+  .listWrap {
+    grid-template-columns: 1fr;
+  }
+}

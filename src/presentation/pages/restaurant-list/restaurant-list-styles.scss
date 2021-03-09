@@ -1,0 +1,36 @@
+@import "../../styles/colors.scss";
+
+.restaurantListWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+
+  .contentWrap {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    max-width: 1366px;
+    width: 100%;
+    flex-grow: 1;
+    padding: 40px;
+
+    h2 {
+      color: $black;
+      font-size: 34px;
+      font-weight: 600;
+      padding: 0 0 20px;
+      font-size: 1.7rem;
+      font-weight: 600;
+      letter-spacing: -1px;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px){
+  .restaurantListWrap{
+    .contentWrap{
+      padding: 20px;
+    }
+  }
+}

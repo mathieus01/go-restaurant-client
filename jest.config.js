@@ -14,11 +14,12 @@ module.exports = {
     '<rootDir>/src/main/test/cypress'
   ],
   transform: {
-    '.+\\.(ts|tsx)$': 'ts-jest'
+    '.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.svg$': '<rootDir>/__mocks__/svgTransform.js'
   },
   moduleNameMapper: {
     '@/(.*)': '<rootDir>/src/$1',
     '\\.scss$': 'identity-obj-proxy',
-    '^.+.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub'
+    '^.+.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$': 'jest-transform-stub'
   }
 }
