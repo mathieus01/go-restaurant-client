@@ -1,20 +1,19 @@
+import { LoadRestaurants } from '@/domain/usecases'
 import React from 'react'
 import Item from '../item/item'
 import Styles from './list-styles.scss'
 
-const List: React.FC = () => {
+type Props = {
+  restaurants: LoadRestaurants.Model[]
+}
+
+const List: React.FC<Props> = ({ restaurants }: Props) => {
   return (
-    <ul className={Styles.listWrap}>
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      <Item />
+    <ul className={Styles.listWrap} data-testid="restaurant-list">
+      { restaurants &&
+      restaurants.map(restaurant => (
+        <Item key={restaurant.id} restaurant={restaurant} />
+      ))}
     </ul>
   )
 }

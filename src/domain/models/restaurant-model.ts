@@ -3,4 +3,6 @@ export interface RestaurantModel {
   name: string
   description: string
   address: string
+  image: string
+  type: string
 }

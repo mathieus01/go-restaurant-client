@@ -8,7 +8,7 @@ export class RemoteLoadRestaurants implements LoadRestaurants {
     private readonly httpClient: HttpClient<RemoteLoadRestaurants.Model[]>
   ) {}
 
-  async loadAll (): Promise<LoadRestaurants.Model> {
+  async loadAll (): Promise<LoadRestaurants.Model[]> {
     const httpResponse = await this.httpClient.request({
       url: this.url,
       method: 'get'
@@ -16,7 +16,7 @@ export class RemoteLoadRestaurants implements LoadRestaurants {
     const remoteRestaurants = httpResponse.body || []
     switch (httpResponse.statusCode) {
       case HttpStatusCode.ok: return remoteRestaurants
-      case HttpStatusCode.noContent: return remoteRestaurants
+      case HttpStatusCode.noContent: return []
       case HttpStatusCode.unauthorized: throw new AccessDeniedError()
       default: throw new UnexpectedError()
     }
@@ -24,10 +24,5 @@ export class RemoteLoadRestaurants implements LoadRestaurants {
 }
 
 export namespace RemoteLoadRestaurants {
-  export type Model = {
-    id: number
-    name: string
-    description: string
-    address: string
-  }
+  export type Model = LoadRestaurants.Model
 }
