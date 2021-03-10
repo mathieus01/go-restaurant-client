@@ -1,7 +1,7 @@
 import { FoodModel } from '@/domain/models'
 
 export interface LoadFoodsByRestaurant {
-  loadByRestaurants(): Promise<LoadFoodsByRestaurant.Model>
+  loadByRestaurants(): Promise<LoadFoodsByRestaurant.Model[]>
 }
 
 export namespace LoadFoodsByRestaurant {
