@@ -5,7 +5,7 @@ import Styles from './header-styles.scss'
 
 const Header: React.FC = () => {
   return (
-    <header className={Styles.headerWrap}>
+    <header className={Styles.headerWrap} data-testid="header" >
       <div className={Styles.headerContent}>
         <div className={Styles.logo}>
           <object data={logoImg} type="image/svg+xml" />
