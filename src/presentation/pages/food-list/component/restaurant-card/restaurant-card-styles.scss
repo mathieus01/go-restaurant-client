@@ -1,0 +1,97 @@
+@import "../../../../styles/colors.scss";
+
+.restaurantWrap {
+  .coverImage {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+  .restaurantContent {
+    display: flex;
+    margin: 25px 0px;
+
+    .restaurantLogo {
+      border: 1px solid $borderColor;
+      border-radius: 50%;
+      width: 85px;
+      height: 85px;
+    }
+    .restaurantInfo {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 10px 20px;
+      
+      .restaurantName {
+        display: flex;
+        align-items: center;
+        h2 {
+          font-size: 20px;
+          font-weight: 600;
+          color: $black;
+          margin-right: 15px;
+        }
+        h4 {
+          color: $yellow;
+          font-weight: bold;
+          line-height: 18px;
+          font-size: 0.875rem;
+
+          svg {
+            fill: $yellow;
+          }
+        }
+      }
+      .restaurantMoreInfo {
+        display: flex;
+        align-items: center;
+        span {
+          color: $lightBlack;
+          font-size: 1rem;
+          line-height: 1.0625rem;
+          font-weight: 400;
+
+          &:nth-child(1) {
+            color: $primary;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-right: 25px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 742px){
+  .restaurantInfo {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    
+    .restaurantName {
+      h2 {
+        padding: 10px 0px !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 472px){
+  .restaurantWrap {
+    .restaurantContent {
+      .restaurantInfo{
+        padding-right: 0px;
+      }
+      .restaurantLogo {
+        align-self: center;
+        width: 65px;
+        height: 65px;
+      }
+    }
+  }
+}

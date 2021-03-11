@@ -1,0 +1,38 @@
+@import "../../styles/colors.scss";
+
+.foodListWrap {
+  display: flex;
+  flex-direction: column;
+  .contentWrap{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    max-width: 1366px;
+    width: 100%;
+    flex-grow: 1;
+    padding: 40px;
+    
+    input {
+      width: 100%;
+      border: 1px solid $borderColor;
+      padding: 20px;
+      border-radius: 4px;
+    }
+    h2 {
+      color: $black;
+      font-size: 34px;
+      font-weight: 600;
+      padding: 20px 0 20px;
+      font-size: 1.7rem;
+      font-weight: 600;
+      letter-spacing: -1px;
+    }
+  }
+}
+@media only screen and (max-width: 768px){
+  .foodListWrap{
+    .contentWrap{
+      padding: 20px;
+    }
+  }
+}

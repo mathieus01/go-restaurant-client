@@ -1,5 +1,6 @@
-import { LoadRestaurants } from '@/domain/usecases'
 import React from 'react'
+import { useHistory } from 'react-router-dom'
+import { LoadRestaurants } from '@/domain/usecases'
 import { FiStar } from 'react-icons/fi'
 import Styles from './item-styles.scss'
 
@@ -8,12 +9,14 @@ type Props = {
 }
 
 const Item: React.FC<Props> = ({ restaurant }: Props) => {
+  const history = useHistory()
   const url = 'https://static-images.ifood.com.br/image/upload/t_thumbnail/logosgde/201811121553_0db84528-bab8-4883-ba40-8fe6856ff1b1.jpg'
+  const handleClick = (): void => history.push(`/restaurants/${restaurant.id}`)
   return (
-    <li className={Styles.restaurantItemWrap}>
+    <li className={Styles.restaurantItemWrap} onClick={handleClick}>
       <div className={Styles.restaurantCard}>
         <div className={Styles.restaurantFigure}>
-          <img data-testid="restaurant-img" src={restaurant.image} alt="restaurant"/>
+          <img data-testid="restaurant-img" src={url} alt="restaurant"/>
         </div>
         <div className={Styles.cardInfo}>
           <h3>

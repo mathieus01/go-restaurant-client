@@ -1,0 +1,43 @@
+@import "../../../../styles/colors.scss";
+
+.foodItemWrap {
+  display: flex;
+  flex-basis: 48%;
+  padding: 20px;
+  margin-bottom: 24px;
+  border: 1px solid $borderColor;
+  border-radius: 4px;
+  background-color: $white;
+  img {
+    width: 146px;
+    height: 146px;
+    border-radius: 6px;
+    margin-left: 10px;
+    object-fit: cover;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: $black;
+    }
+    span {
+      color: $lightBlack;
+      font-size: 1rem;
+      line-height: 1.0625rem;
+      font-weight: 500;
+      padding: 5px 0px;
+    }
+    strong {
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+  }
+  &:hover {
+    border: 1px solid $borderColorDark;
+    cursor: pointer;
+  }
+}
