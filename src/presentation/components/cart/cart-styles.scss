@@ -1,0 +1,104 @@
+@import "../../styles/colors.scss";
+
+.cartWrap {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 30px;
+  width: 100%;
+  
+  .cartTitle {
+    padding: 20px 0px;
+    border-bottom: 1px solid $borderColorDark;
+    span {
+      color: $lightBlack;
+      font-size: 1rem;
+      line-height: 1.0625rem;
+      font-weight: 300;
+      padding: 5px 0px;
+    }
+    h2 {
+      color: $black;
+      font-size: 34px;
+      font-weight: 600;
+      font-size: 1.7rem;
+      font-weight: 600;
+      letter-spacing: -1px;
+    }
+  }
+  .cartOrder {
+    padding: 20px 0px;
+    border-bottom: 1px solid $borderColorDark;
+    span {
+      font-weight: 400;
+      font-size: 14px;
+      color: $black;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-right: 10px;
+    }
+    strong {
+      font-size: 16px;
+      color: $black;
+    }
+
+    button {
+      margin-top: 10px;
+      height: fit-content;
+      background: transparent;
+      padding: 5px 10px;
+      cursor: pointer;
+      line-height: 16px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .editButton {
+      color: $primary
+    }
+    .removeButton {
+      color: $disabledColor
+    }
+  }
+  
+  .cartPrice {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0px;
+    border-bottom: 1px solid $borderColorDark;
+    margin-bottom: 20px;
+
+    span {
+      font-weight: 300;
+      font-size: 16px;
+      color: $black;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    strong {
+      font-weight: 600;
+      font-size: 16px;
+      color: $black;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .subTotal {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+
+    }
+    .deliveryFee {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .total {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
