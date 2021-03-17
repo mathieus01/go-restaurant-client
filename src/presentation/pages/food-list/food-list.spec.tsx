@@ -1,11 +1,11 @@
 import React from 'react'
 import FoodList from './food-list'
 import { ApiContext } from '@/presentation/contexts'
-import { LoadFoodsByRestaurantSpy, mockAccountModel } from '@/domain/test'
+import { LoadFoodsByRestaurantSpy, mockAccountModel, mockFoodModelList } from '@/domain/test'
 import { AccessDeniedError, UnexpectedError } from '@/domain/errors'
 import { AccountModel } from '@/domain/models'
 import { createMemoryHistory, MemoryHistory } from 'history'
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor, act } from '@testing-library/react'
 import { Router } from 'react-router-dom'
 
 type SutTypes = {
@@ -72,5 +72,82 @@ describe('FoodList Component', () => {
     fireEvent.click(screen.getByTestId('reload'))
     expect(loadFoodsByRestaurantSpy.callsCount).toBe(1)
     await waitFor(() => screen.getByTestId('header'))
+  })
+  test('Should present correct cart initial state', () => {
+    makeSut()
+    expect(screen.queryByTestId('cartTitle')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('cartEmpty')).toBeInTheDocument()
+  })
+  test('Should present add food in cart', async () => {
+    makeSut()
+    expect(screen.queryByTestId('cartTitle')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('cartEmpty')).toBeInTheDocument()
+    await waitFor(() => screen.getByTestId('header'))
+    fireEvent.click(screen.getByTestId('food-item'))
+    await waitFor(() => screen.getByTestId('header'))
+    expect(screen.queryByTestId('cartTitle')).toBeInTheDocument()
+    expect(screen.queryByTestId('cartEmpty')).not.toBeInTheDocument()
+  })
+  test('Should remove food from cart', async () => {
+    makeSut()
+    expect(screen.queryByTestId('cartTitle')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('cartEmpty')).toBeInTheDocument()
+    await waitFor(() => screen.getByTestId('header'))
+    fireEvent.click(screen.getByTestId('food-item'))
+    await waitFor(() => screen.getByTestId('header'))
+    expect(screen.queryByTestId('cartTitle')).toBeInTheDocument()
+    expect(screen.queryByTestId('cartEmpty')).not.toBeInTheDocument()
+    fireEvent.click(screen.getByTestId('removeButton'))
+    await waitFor(() => screen.getByTestId('header'))
+    expect(screen.queryByTestId('cartTitle')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('cartEmpty')).toBeInTheDocument()
+  })
+  test('Should increase food amount from cart', async () => {
+    const loadFoodsByRestaurantSpy = new LoadFoodsByRestaurantSpy()
+    const foods = loadFoodsByRestaurantSpy.foodsResult
+    makeSut(loadFoodsByRestaurantSpy)
+    await waitFor(() => screen.getByTestId('header'))
+    fireEvent.click(screen.getByTestId('food-item'))
+    await waitFor(() => screen.getByTestId('header'))
+    fireEvent.click(screen.getByTestId('increaseButton'))
+    await waitFor(() => screen.getByTestId('header'))
+    expect(screen.getByTestId('food-name')).toHaveTextContent(`2x ${foods[0].name}`)
+  })
+  test('Should decrease food amount from cart', async () => {
+    const loadFoodsByRestaurantSpy = new LoadFoodsByRestaurantSpy()
+    const foods = loadFoodsByRestaurantSpy.foodsResult
+    makeSut(loadFoodsByRestaurantSpy)
+    await waitFor(() => screen.getByTestId('header'))
+    fireEvent.click(screen.getByTestId('food-item'))
+    await waitFor(() => screen.getByTestId('header'))
+    fireEvent.click(screen.getByTestId('increaseButton'))
+    await waitFor(() => screen.getByTestId('header'))
+    expect(screen.getByTestId('food-name')).toHaveTextContent(`2x ${foods[0].name}`)
+    fireEvent.click(screen.getByTestId('decreaseButton'))
+    await waitFor(() => screen.getByTestId('header'))
+    expect(screen.getByTestId('food-name')).toHaveTextContent(`1x ${foods[0].name}`)
+    fireEvent.click(screen.getByTestId('decreaseButton'))
+    await waitFor(() => screen.getByTestId('header'))
+    expect(screen.queryByTestId('cartTitle')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('cartEmpty')).toBeInTheDocument()
+  })
+  test('Should show the right subtotal, total and fee', async () => {
+    const foods = mockFoodModelList()
+    const loadFoodsByRestaurantSpy = new LoadFoodsByRestaurantSpy()
+    loadFoodsByRestaurantSpy.foodsResult = foods
+    makeSut(loadFoodsByRestaurantSpy)
+    await waitFor(() => screen.getByTestId('header'))
+    fireEvent.click(screen.getByTestId('food-item'))
+    await waitFor(() => screen.getByTestId('header'))
+    expect(screen.getByTestId('subtotal')).toHaveTextContent(`R$ ${foods[0].price}`)
+    expect(screen.getByTestId('total')).toHaveTextContent(`R$ ${foods[0].price + 6.99}`)
+    fireEvent.click(screen.getByTestId('increaseButton'))
+    await waitFor(() => screen.getByTestId('header'))
+    expect(screen.getByTestId('subtotal')).toHaveTextContent(`R$ ${foods[0].price * 2}`)
+    expect(screen.getByTestId('total')).toHaveTextContent(`R$ ${(foods[0].price * 2) + 6.99}`)
+    fireEvent.click(screen.getByTestId('decreaseButton'))
+    await waitFor(() => screen.getByTestId('header'))
+    expect(screen.getByTestId('subtotal')).toHaveTextContent(`R$ ${foods[0].price}`)
+    expect(screen.getByTestId('total')).toHaveTextContent(`R$ ${foods[0].price + 6.99}`)
   })
 })

@@ -6,7 +6,7 @@ export const mockFoodModel = (): LoadFoodsByRestaurant.Model => ({
   id: faker.random.number(),
   name: faker.name.findName(),
   image: faker.internet.url(),
-  price: faker.random.number(),
+  price: faker.random.number(100),
   description: faker.random.words(6),
   type: faker.random.word()
 })
