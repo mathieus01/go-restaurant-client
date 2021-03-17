@@ -1,6 +1,8 @@
 @import "../../../../styles/colors.scss";
 
 .restaurantWrap {
+  margin: 0 auto;
+  max-width: calc(1366px - 430px);
   .coverImage {
     width: 100%;
     height: 300px;

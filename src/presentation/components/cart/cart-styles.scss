@@ -5,6 +5,30 @@
   flex-direction: column;
   padding: 0px 30px;
   width: 100%;
+
+  .cartEmpty{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    span {
+      color: $lightBlack;
+      font-size: 1rem;
+      line-height: 1.0625rem;
+      font-weight: 300;
+      padding: 5px 0px;
+    }
+    h2 {
+      color: $black;
+      font-size: 34px;
+      font-weight: 600;
+      font-size: 1.7rem;
+      font-weight: 600;
+      letter-spacing: -1px;
+    }
+  }
   
   .cartTitle {
     padding: 20px 0px;
@@ -28,6 +52,10 @@
   .cartOrder {
     padding: 20px 0px;
     border-bottom: 1px solid $borderColorDark;
+    .foodButtons{
+      display: flex;
+      justify-content: space-between;
+    }
     span {
       font-weight: 400;
       font-size: 14px;
@@ -46,14 +74,15 @@
       margin-top: 10px;
       height: fit-content;
       background: transparent;
-      padding: 5px 10px;
+      padding: 5px 0px;
       cursor: pointer;
       line-height: 16px;
       font-size: 16px;
       font-weight: 600;
-    }
-    .editButton {
       color: $primary
+    }
+    .increaseButton {
+      margin-right: 10px;
     }
     .removeButton {
       color: $disabledColor
@@ -68,7 +97,7 @@
     margin-bottom: 20px;
 
     span {
-      font-weight: 300;
+      font-weight: 500;
       font-size: 16px;
       color: $black;
       white-space: nowrap;

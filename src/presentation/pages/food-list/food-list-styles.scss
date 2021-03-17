@@ -8,6 +8,7 @@
 
   .foodListContent {
     display: flex;
+    height: 100%;
     .contentWrap{
       display: flex;
       flex-direction: column;
@@ -15,9 +16,10 @@
       max-width:calc(100% - 430px);
       width: 100%;
       flex-grow: 1;
-      padding: 40px 100px;
+      padding: 40px 0px;
       overflow-y: auto;
       max-height: 90vh;
+      height: 100%;
 
       &::-webkit-scrollbar {
         width: 0.25rem;
@@ -36,6 +38,8 @@
         border: 1px solid $borderColor;
         padding: 20px;
         border-radius: 4px;
+        margin: 0 auto;
+        max-width: calc(1366px - 430px);
       }
       h2 {
         color: $black;
@@ -45,6 +49,9 @@
         font-size: 1.7rem;
         font-weight: 600;
         letter-spacing: -1px;
+        width: 100%;
+        margin: 0 auto;
+        max-width: calc(1366px - 430px);
       }
     }
     .cartContent {
