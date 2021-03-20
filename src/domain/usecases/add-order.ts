@@ -6,7 +6,6 @@ export namespace AddOrder {
   export type Model = {
     foodsOrder: FoodOrder[]
     address: string
-    account_id: number
   }
   export type FoodOrder = {
     id: number

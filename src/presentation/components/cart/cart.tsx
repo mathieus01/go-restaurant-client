@@ -3,6 +3,7 @@ import { FiPlusCircle, FiMinusCircle } from 'react-icons/fi'
 import { FoodModel } from '@/domain/models'
 import { CartContext } from '@/presentation/contexts'
 import Styles from './cart-styles.scss'
+import { AddOrder } from '@/domain/usecases'
 
 const Cart: React.FC = () => {
   const [state, setState] = useState({
@@ -14,14 +15,14 @@ const Cart: React.FC = () => {
 
   const removeFood = (food: FoodModel): void => {
     const foods = cart.foods.filter(foodCart => foodCart.id !== food.id)
-    setCart(old => ({ ...cart, foods: [...foods] }))
+    setCart(old => ({ ...old, foods: [...foods] }))
   }
 
   const increaseAmount = (food: FoodModel): void => {
     const newFood = cart.foods.find(foodCart => foodCart.id === food.id)
     newFood.amount += 1
     const foods = cart.foods.filter(foodCart => foodCart.id !== food.id)
-    setCart(old => ({ ...cart, foods: [...foods, newFood] }))
+    setCart(old => ({ ...old, foods: [...foods, newFood] }))
   }
 
   const decreaseAmount = (food: FoodModel): void => {
@@ -41,6 +42,22 @@ const Cart: React.FC = () => {
       subTotal += food.amount * food.price
     })
     setState(old => ({ ...old, subTotal, total: subTotal + old.fee }))
+  }
+
+  const checkout = (): void => {
+    const foodsOrder = cart.foods.map(food => ({
+      food_id: food.id,
+      amount: food.amount,
+      observation: 'any_observation'
+    }))
+    const addOrderParams = {
+      date: new Date(),
+      address: 'any_address',
+      status: 'CRIADA',
+      foodsOrder
+    }
+
+    console.log(addOrderParams)
   }
 
   useEffect(() => {
@@ -84,7 +101,7 @@ const Cart: React.FC = () => {
               <span data-testid="total">R$ {state.total}</span>
             </div>
           </section>
-          <button>Finalizar</button>
+          <button onClick={e => checkout()}>Finalizar</button>
         </>
         : <div className={Styles.cartEmpty} data-testid="cartEmpty">
           <h2>Sua sacola está vazia</h2>
