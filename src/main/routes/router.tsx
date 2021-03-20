@@ -4,13 +4,15 @@ import { setCurrentAccountAdapter, getCurrentAccountAdapter } from '@/main/adapt
 import { ApiContext } from '@/presentation/contexts'
 import { PrivateRoute } from '@/presentation/components'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { makeRemoteAddOrder } from '../factories/usecases/add-order/remote-add-order-factory'
 
 const Router: React.FC = () => {
   return (
     <ApiContext.Provider
       value={{
         setCurrentAccount: setCurrentAccountAdapter,
-        getCurrentAccount: getCurrentAccountAdapter
+        getCurrentAccount: getCurrentAccountAdapter,
+        addOrder: makeRemoteAddOrder()
       }}>
       <BrowserRouter>
         <Switch>

@@ -130,4 +130,10 @@
       justify-content: space-between;
     }
   }
+  .error {
+    font-weight: 600;
+    font-size: 16px;
+    color: $primary;
+    margin: 10px 0px;
+  }
 }

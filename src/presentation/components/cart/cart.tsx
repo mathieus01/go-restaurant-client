@@ -1,17 +1,22 @@
 import React, { useContext, useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { FiPlusCircle, FiMinusCircle } from 'react-icons/fi'
 import { FoodModel } from '@/domain/models'
-import { CartContext } from '@/presentation/contexts'
+import { CartContext, ApiContext } from '@/presentation/contexts'
 import Styles from './cart-styles.scss'
-import { AddOrder } from '@/domain/usecases'
+import { OrderModel } from '@/domain/models/order-model'
 
 const Cart: React.FC = () => {
+  const history = useHistory()
   const [state, setState] = useState({
     subTotal: 0,
     fee: 6.99,
-    total: 0
+    total: 0,
+    error: '',
+    loading: false
   })
   const { cart, setCart } = useContext(CartContext)
+  const { addOrder } = useContext(ApiContext)
 
   const removeFood = (food: FoodModel): void => {
     const foods = cart.foods.filter(foodCart => foodCart.id !== food.id)
@@ -45,6 +50,7 @@ const Cart: React.FC = () => {
   }
 
   const checkout = (): void => {
+    setState(old => ({ ...old, loading: true, err: '' }))
     const foodsOrder = cart.foods.map(food => ({
       food_id: food.id,
       amount: food.amount,
@@ -57,7 +63,14 @@ const Cart: React.FC = () => {
       foodsOrder
     }
 
-    console.log(addOrderParams)
+    addOrder.add(addOrderParams)
+      .then((order: OrderModel) => {
+        setState(old => ({ ...old, loading: false }))
+        history.replace(`/orders/${order.id}`)
+      })
+      .catch(err => {
+        setState(old => ({ ...old, loading: false, error: err.message }))
+      })
   }
 
   useEffect(() => {
@@ -70,7 +83,7 @@ const Cart: React.FC = () => {
         ? <>
           <section className={Styles.cartTitle} data-testid="cartTitle">
             <span>Seu pedido em</span>
-            <h2>Pizza Cesar - Aguas Claras</h2>
+            <h2>{cart.foods[0].restaurant.name}</h2>
           </section>
           {cart.foods.map((food) => (
             <section className={Styles.cartOrder} data-testid="cartOrder" key={food.id}>
@@ -101,7 +114,10 @@ const Cart: React.FC = () => {
               <span data-testid="total">R$ {state.total}</span>
             </div>
           </section>
-          <button onClick={e => checkout()}>Finalizar</button>
+          {state.error &&
+            <span className={Styles.error}>{state.error}</span>
+          }
+          <button data-testid="checkout" onClick={e => checkout()} >Finalizar</button>
         </>
         : <div className={Styles.cartEmpty} data-testid="cartEmpty">
           <h2>Sua sacola está vazia</h2>

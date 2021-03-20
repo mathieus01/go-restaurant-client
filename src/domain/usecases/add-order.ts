@@ -1,5 +1,7 @@
+import { OrderModel } from '../models/order-model'
+
 export interface AddOrder {
-  add(params: AddOrder.Model): Promise<AddOrder.Model>
+  add(params: AddOrder.Model): Promise<OrderModel>
 }
 
 export namespace AddOrder {

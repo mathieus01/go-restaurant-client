@@ -1,3 +1,5 @@
+import { RestaurantModel } from './restaurant-model'
+
 export interface FoodModel {
   id?: number
   name: string
@@ -5,4 +7,5 @@ export interface FoodModel {
   price: number
   type?: string
   description?: string
+  restaurant?: RestaurantModel
 }
