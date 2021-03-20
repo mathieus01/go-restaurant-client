@@ -1,6 +1,7 @@
 import faker from 'faker'
 import { LoadFoodsByRestaurant } from '@/domain/usecases'
 import { FoodModel } from '../models'
+import { mockRestaurantModel } from './mock-restaurant'
 
 export const mockFoodModel = (): LoadFoodsByRestaurant.Model => ({
   id: faker.random.number(),
@@ -8,7 +9,8 @@ export const mockFoodModel = (): LoadFoodsByRestaurant.Model => ({
   image: faker.internet.url(),
   price: faker.random.number(100),
   description: faker.random.words(6),
-  type: faker.random.word()
+  type: faker.random.word(),
+  restaurant: mockRestaurantModel()
 })
 
 export const mockFoodModelList = (): LoadFoodsByRestaurant.Model[] => [mockFoodModel()]

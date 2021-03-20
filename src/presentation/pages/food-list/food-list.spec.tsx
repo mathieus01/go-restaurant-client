@@ -1,15 +1,17 @@
 import React from 'react'
 import FoodList from './food-list'
 import { ApiContext } from '@/presentation/contexts'
-import { LoadFoodsByRestaurantSpy, mockAccountModel, mockFoodModelList } from '@/domain/test'
+import { AddOrderSpy, LoadFoodsByRestaurantSpy, mockAccountModel, mockFoodModelList } from '@/domain/test'
 import { AccessDeniedError, UnexpectedError } from '@/domain/errors'
 import { AccountModel } from '@/domain/models'
 import { createMemoryHistory, MemoryHistory } from 'history'
 import { fireEvent, render, screen, waitFor, act } from '@testing-library/react'
 import { Router } from 'react-router-dom'
+import MockDate from 'mockdate'
 
 type SutTypes = {
   loadFoodsByRestaurantSpy: LoadFoodsByRestaurantSpy
+  addOrderSpy: AddOrderSpy
   history: MemoryHistory
   setCurrentAccountMock: (account: AccountModel) => void
 }
@@ -17,17 +19,26 @@ type SutTypes = {
 const makeSut = (loadFoodsByRestaurantSpy = new LoadFoodsByRestaurantSpy()): SutTypes => {
   const history = createMemoryHistory({ initialEntries: ['/', '/restaurants/any_id'], initialIndex: 1 })
   const setCurrentAccountMock = jest.fn()
+  const addOrderSpy = new AddOrderSpy()
   render(
-    <ApiContext.Provider value={{ setCurrentAccount: setCurrentAccountMock, getCurrentAccount: () => mockAccountModel() }}>
+    <ApiContext.Provider value={{ setCurrentAccount: setCurrentAccountMock, getCurrentAccount: () => mockAccountModel(), addOrder: addOrderSpy }}>
       <Router history={history}>
         <FoodList loadFoodsByRestaurant={loadFoodsByRestaurantSpy} />
       </Router>
     </ApiContext.Provider>
   )
-  return { loadFoodsByRestaurantSpy, history, setCurrentAccountMock }
+  return { loadFoodsByRestaurantSpy, history, setCurrentAccountMock, addOrderSpy }
 }
 
 describe('FoodList Component', () => {
+  beforeAll(() => {
+    MockDate.set(new Date())
+  })
+
+  afterAll(() => {
+    MockDate.reset()
+  })
+
   test('Should present correct initial state', async () => {
     makeSut()
     const foodList = screen.getByTestId('food-list')
@@ -149,5 +160,26 @@ describe('FoodList Component', () => {
     await waitFor(() => screen.getByTestId('header'))
     expect(screen.getByTestId('subtotal')).toHaveTextContent(`R$ ${foods[0].price}`)
     expect(screen.getByTestId('total')).toHaveTextContent(`R$ ${foods[0].price + 6.99}`)
+  })
+  test('Should call addOrder ', async () => {
+    const foods = mockFoodModelList()
+    const loadFoodsByRestaurantSpy = new LoadFoodsByRestaurantSpy()
+    loadFoodsByRestaurantSpy.foodsResult = foods
+    const { addOrderSpy } = makeSut(loadFoodsByRestaurantSpy)
+    await waitFor(() => screen.getByTestId('header'))
+    fireEvent.click(screen.getByTestId('food-item'))
+    await waitFor(() => screen.getByTestId('header'))
+    fireEvent.click(screen.getByTestId('checkout'))
+    await waitFor(() => screen.getByTestId('header'))
+    expect(addOrderSpy.params).toEqual({
+      date: new Date(),
+      address: 'any_address',
+      status: 'CRIADA',
+      foodsOrder: [{
+        food_id: foods[0].id,
+        amount: 1,
+        observation: 'any_observation'
+      }]
+    })
   })
 })
