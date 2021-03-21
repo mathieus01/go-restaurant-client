@@ -1,6 +1,6 @@
-import { AddOrder } from '../usecases'
+import { AddOrder, LoadOrderById } from '@/domain/usecases'
+import { OrderModel } from '@/domain/models/order-model'
 import faker from 'faker'
-import { OrderModel } from '../models/order-model'
 
 export const mockAddOrderParams = (): AddOrder.Model => ({
   address: faker.random.words(3),
@@ -26,6 +26,16 @@ export class AddOrderSpy implements AddOrder {
   async add (params: AddOrder.Model): Promise<OrderModel> {
     this.callsCount++
     this.params = params
+    return Promise.resolve(this.order)
+  }
+}
+
+export class LoadOrderByIdSpy implements LoadOrderById {
+  callsCount = 0
+  order = mockOrderModel()
+
+  async loadById (): Promise<OrderModel> {
+    this.callsCount++
     return Promise.resolve(this.order)
   }
 }

@@ -1,5 +1,5 @@
 export * from './mock-add-account'
 export * from './mock-account'
 export * from './mock-foods'
-export * from './mock-add-order'
+export * from './mock-order'
 export * from './mock-restaurant'
