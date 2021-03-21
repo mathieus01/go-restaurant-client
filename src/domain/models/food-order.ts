@@ -3,8 +3,8 @@ import { OrderModel } from './order-model'
 
 export interface FoodOrderModel {
   id: number
-  food: FoodModel
-  order: OrderModel
+  food?: FoodModel
+  order?: OrderModel
   amount: number
   observation: string
 }

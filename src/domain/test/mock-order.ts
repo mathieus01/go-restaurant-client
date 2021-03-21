@@ -1,6 +1,8 @@
 import { AddOrder, LoadOrderById } from '@/domain/usecases'
 import { OrderModel } from '@/domain/models/order-model'
 import faker from 'faker'
+import { FoodOrderModel } from '../models/food-order'
+import { mockFoodModel } from './mock-foods'
 
 export const mockAddOrderParams = (): AddOrder.Model => ({
   address: faker.random.words(3),
@@ -11,11 +13,26 @@ export const mockAddOrderParams = (): AddOrder.Model => ({
   }]
 })
 
+export const mockFoodsOrdersModel = (): FoodOrderModel => ({
+  id: faker.random.number(5),
+  amount: faker.random.number(5),
+  observation: faker.random.words(3),
+  food: mockFoodModel(),
+  order: mockOrderModel()
+})
+export const mockFoodsOrdersWithoutOrderModel = (): FoodOrderModel => ({
+  id: faker.random.number(5),
+  amount: faker.random.number(5),
+  observation: faker.random.words(3),
+  food: mockFoodModel()
+})
+
 export const mockOrderModel = (): OrderModel => ({
   address: faker.random.words(5),
   date: new Date('2021-02-16T00:00:00'),
   id: faker.random.number(5),
-  status: faker.random.word()
+  status: faker.random.word(),
+  foodsOrder: [mockFoodsOrdersWithoutOrderModel()]
 })
 
 export class AddOrderSpy implements AddOrder {
