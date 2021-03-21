@@ -5,6 +5,7 @@ import { ApiContext } from '@/presentation/contexts'
 import { PrivateRoute } from '@/presentation/components'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { makeRemoteAddOrder } from '../factories/usecases/add-order/remote-add-order-factory'
+import { DetailOrder } from '@/presentation/pages'
 
 const Router: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const Router: React.FC = () => {
           <Route path="/login" exact component={makeLogin} />
           <PrivateRoute path="/" exact component={makeRestaurantList} />
           <PrivateRoute path="/restaurants/:id" component={makeFoodList} />
+          <PrivateRoute path="/orders/:id" component={DetailOrder} />
         </Switch>
       </BrowserRouter>
     </ApiContext.Provider>

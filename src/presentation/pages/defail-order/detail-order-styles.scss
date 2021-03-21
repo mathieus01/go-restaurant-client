@@ -1,0 +1,209 @@
+@import "../../styles/colors.scss";
+
+.detailOrderWrap {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100vh;
+
+  .detailOrderContent{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 100%;
+    max-width: 660px;
+    flex-grow: 1;
+    padding: 10px 0px 40px;
+    overflow-y: auto;
+    max-height: 90vh;
+    height: 100%;
+
+    &::-webkit-scrollbar {
+      width: 0.1rem;
+    }
+  
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
+
+    .restaurantSection{
+      display: flex;
+      flex-direction: column;
+      padding: 20px 0px;
+      color: $lightBlack;
+      font-weight: 400;
+      border-bottom: 1px solid $borderColor;
+
+      a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        font-size: 16px;
+        line-height: 16px;
+        font-weight: 500;
+        color: $lightBlack;
+
+        svg {
+          margin-right: 10px;
+        }
+      }
+
+      h2 {
+        color: $black;
+        font-size: 28px;
+        padding: 10px 0px;
+      }
+
+      h4 {
+        font-size: 16px;
+        font-weight: 400;
+        margin-bottom: 10px;
+      }
+
+      span {
+        color: $black;
+        font-weight: 400;
+        font-size: 16px;
+        padding-bottom: 10px;
+      }
+
+      .menuLink{
+        color: $primary;
+        margin-bottom: 15px;
+      }
+    }
+    .foodSection{
+      display: flex;
+      flex-direction: column;
+      padding: 20px 0px;
+      color: $black;
+      font-weight: 400;
+      border-bottom: 1px solid $borderColor;
+      .foodItens {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        
+        h3 {
+          font-size: 16px;
+          font-weight: 600;
+        }
+
+      }
+      span {
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+    .addressSection {
+      display: flex;
+      flex-direction: column;
+      padding: 20px 0px;
+      color: $black;
+      font-weight: 400;
+      border-bottom: 1px solid $borderColor;
+
+      h3 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      span {
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+    .orderSection {
+      .orderNumber {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 0px;
+        color: $black;
+        font-weight: 400;
+        border-bottom: 1px solid $borderColor;
+        h3 {
+          font-size: 16px;
+          font-weight: 600;
+          margin-bottom: 10px;
+        }
+        span {
+          font-size: 14px;
+          font-weight: 400;
+        }
+      }
+
+      .orderDate {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 0px;
+        color: $black;
+        font-weight: 400;
+        border-bottom: 1px solid $borderColor;
+        h3 {
+          font-size: 16px;
+          font-weight: 600;
+          margin-bottom: 10px;
+        }
+        span {
+          font-size: 14px;
+          font-weight: 400;
+        }
+      }
+
+      .orderPayment {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 0px;
+        color: $black;
+        font-weight: 400;
+        border-bottom: 1px solid $borderColor;
+        h3 {
+          font-size: 16px;
+          font-weight: 600;
+          margin-bottom: 10px;
+        }
+        span {
+          font-size: 14px;
+          font-weight: 400;
+        }
+      }
+
+      .orderStatus {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 0px;
+        color: $black;
+        font-weight: 400;
+        border-bottom: 1px solid $borderColor;
+        h3 {
+          font-size: 16px;
+          font-weight: 600;
+          margin-bottom: 10px;
+        }
+        span {
+          font-size: 14px;
+          font-weight: 400;
+        }
+      }
+    }
+    .buttonsSection {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .menuLink {
+        text-decoration: none;
+        color: $primary;
+        margin: 15px 0px;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
