@@ -8,7 +8,7 @@ export class RemoteLoadOrderById implements LoadOrderById {
     private readonly httpClient: HttpClient<RemoteLoadOrderById.Model>
   ) {}
 
-  async loadById (orderId: number): Promise<LoadOrderById.Model> {
+  async loadById (): Promise<LoadOrderById.Model> {
     const httpResponse = await this.httpClient.request({
       url: this.url,
       method: 'get'

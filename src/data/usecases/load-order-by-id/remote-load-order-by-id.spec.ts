@@ -24,7 +24,7 @@ describe('RemoteLoadOrderById', () => {
       statusCode: HttpStatusCode.ok,
       body: mockOrderModel()
     }
-    await sut.loadById(1)
+    await sut.loadById()
     expect(httpClientSpy.url).toEqual(url)
     expect(httpClientSpy.method).toEqual('get')
   })
@@ -33,7 +33,7 @@ describe('RemoteLoadOrderById', () => {
     httpClientSpy.response = {
       statusCode: HttpStatusCode.forbidden
     }
-    const promise = sut.loadById(1)
+    const promise = sut.loadById()
     await expect(promise).rejects.toEqual(new AccessDeniedError())
   })
   test('Should throw UnexpectedError if HttpClient returns 404', async () => {
@@ -41,7 +41,7 @@ describe('RemoteLoadOrderById', () => {
     httpClientSpy.response = {
       statusCode: HttpStatusCode.notFound
     }
-    const promise = sut.loadById(1)
+    const promise = sut.loadById()
     await expect(promise).rejects.toEqual(new UnexpectedError())
   })
   test('Should throw UnexpectedError if HttpClient returns 500', async () => {
@@ -49,7 +49,7 @@ describe('RemoteLoadOrderById', () => {
     httpClientSpy.response = {
       statusCode: HttpStatusCode.serverError
     }
-    const promise = sut.loadById(1)
+    const promise = sut.loadById()
     await expect(promise).rejects.toEqual(new UnexpectedError())
   })
   test('Should return OrderModel on 200', async () => {
@@ -59,7 +59,7 @@ describe('RemoteLoadOrderById', () => {
       statusCode: HttpStatusCode.ok,
       body: order
     }
-    const orderModel = await sut.loadById(1)
+    const orderModel = await sut.loadById()
     await expect(orderModel).toEqual(order)
   })
 })
