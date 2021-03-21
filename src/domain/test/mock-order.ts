@@ -1,4 +1,4 @@
-import { AddOrder, LoadOrderById } from '@/domain/usecases'
+import { AddOrder, LoadOrderById, LoadOrders } from '@/domain/usecases'
 import { OrderModel } from '@/domain/models/order-model'
 import faker from 'faker'
 import { FoodOrderModel } from '../models/food-order'
@@ -54,5 +54,14 @@ export class LoadOrderByIdSpy implements LoadOrderById {
   async loadById (): Promise<OrderModel> {
     this.callsCount++
     return Promise.resolve(this.order)
+  }
+}
+export class LoadOrdersSpy implements LoadOrders {
+  callsCount = 0
+  orders = [mockOrderModel()]
+
+  async load (): Promise<OrderModel[]> {
+    this.callsCount++
+    return Promise.resolve(this.orders)
   }
 }
