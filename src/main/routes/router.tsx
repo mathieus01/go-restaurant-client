@@ -5,6 +5,7 @@ import { setCurrentAccountAdapter, getCurrentAccountAdapter } from '@/main/adapt
 import { ApiContext } from '@/presentation/contexts'
 import { PrivateRoute } from '@/presentation/components'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { OrderList } from '@/presentation/pages'
 
 const Router: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const Router: React.FC = () => {
           <Route path="/login" exact component={makeLogin} />
           <PrivateRoute path="/" exact component={makeRestaurantList} />
           <PrivateRoute path="/restaurants/:id" component={makeFoodList} />
+          <PrivateRoute path="/orders" exact component={OrderList} />
           <PrivateRoute path="/orders/:id" component={makeDetailOrder} />
         </Switch>
       </BrowserRouter>
