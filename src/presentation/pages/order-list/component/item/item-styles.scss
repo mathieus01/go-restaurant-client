@@ -56,6 +56,9 @@
       line-height: 18px;
       padding: 0px;
       color: $lightBlack;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     h4 {
       font-size: 14px;
