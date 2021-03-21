@@ -6,6 +6,13 @@
   overflow: hidden;
   height: 100vh;
 
+  .loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
   .detailOrderContent{
     display: flex;
     flex-direction: column;
