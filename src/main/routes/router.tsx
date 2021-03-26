@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeSignUp, makeLogin, makeRestaurantList, makeFoodList, makeDetailOrder, makeOrderList } from '@/main/factories/pages'
+import { makeSignUp, makeLogin, makeRestaurantList, makeFoodList, makeDetailOrder, makeOrderList, makeAccountDetail } from '@/main/factories/pages'
 import { makeRemoteAddOrder } from '@/main/factories/usecases'
 import { setCurrentAccountAdapter, getCurrentAccountAdapter } from '@/main/adapters'
 import { ApiContext } from '@/presentation/contexts'
@@ -22,6 +22,7 @@ const Router: React.FC = () => {
           <PrivateRoute path="/restaurants/:id" component={makeFoodList} />
           <PrivateRoute path="/orders" exact component={makeOrderList} />
           <PrivateRoute path="/orders/:id" component={makeDetailOrder} />
+          <PrivateRoute path="/account" component={makeAccountDetail} />
         </Switch>
       </BrowserRouter>
     </ApiContext.Provider>
