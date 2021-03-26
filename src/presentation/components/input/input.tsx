@@ -12,7 +12,7 @@ const Input: React.FC<Props> = (props: Props) => {
   return (
     <div
       data-testid={`${props.name}-wrap`}
-      className={Styles.inputWrap}
+      className={[Styles.inputWrap, props.className].join(' ')}
       data-status={error ? 'invalid' : 'valid'}
     >
       <input

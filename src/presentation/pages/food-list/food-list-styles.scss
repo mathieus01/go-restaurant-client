@@ -57,7 +57,8 @@
     .cartContent {
       display: flex;
       flex-basis: 430px;
-      box-shadow: -3px 0 10px -5px rgba(0, 0, 0, .3);
+      box-shadow: -3px 0 10px -5px rgba($black, .3);
+      
     }
   }
 }

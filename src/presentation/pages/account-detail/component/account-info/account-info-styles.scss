@@ -1,0 +1,54 @@
+@import "../../../../styles/colors.scss";
+
+h2 {
+  color: $black;
+  font-size: 28px;
+  padding: 10px 0px;
+  border-bottom: 1px solid $borderColor;
+}
+.restaurantCart {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0px;
+  .restaurantTitle {
+    display: flex;
+    align-items: center;
+    padding: 10px 0px;
+    img {
+      border: 1px solid $borderColor;
+      border-radius: 50%;
+      width: 85px;
+      height: 85px;
+      margin-right: 20px;
+    }
+    .restaurantInfo {
+      display: flex;
+      flex-direction: column;
+      h3 {
+        font-size: 20px;
+        font-weight: 600;
+        color: $black;
+        margin-right: 15px;
+      }
+      span {
+        color: $lightBlack;
+        font-size: 1rem;
+        line-height: 1.0625rem;
+        font-weight: 500;
+        padding: 5px 0px;
+      }
+    }
+  }
+  span {
+    padding: 10px 0px;
+    color: $black;
+    font-size: 1rem;
+    line-height: 1.0625rem;
+    font-weight: 400;
+  }
+  .restaurantDescription {
+    padding: 0px;
+    max-height: 116px;
+    width: 100%;
+  }
+}

@@ -1,0 +1,67 @@
+@import "../../styles/colors.scss";
+
+.accountDetailWrap {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100vh;
+  .loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .accountDetailContent {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 100%;
+    max-width: 1280px;
+    flex-grow: 1;
+    padding: 0px 30px 40px;
+    margin: 20px 0px 0px;
+    overflow-y: auto;
+    max-height: 90vh;
+    height: 100%;
+    border: 1px solid $borderColor;
+    border-radius: 4px;
+
+    &::-webkit-scrollbar {
+      width: 0.1rem;
+    }
+  
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
+  }
+  .restaurantFood {
+    .restaurantFoodTitle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0px;
+      border-bottom: 1px solid $borderColor;
+      margin-bottom: 20px;
+      
+      h2 {
+        color: $black;
+        font-size: 28px;
+        border-bottom: none;
+        padding: 0px;
+      }
+      h3 {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        color: $primary;
+        font-size: 14px;
+        padding: 0px;
+        cursor: pointer;
+      }
+    }
+  }
+}
