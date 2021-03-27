@@ -4,7 +4,8 @@ import { Authentication } from '../usecases/authentication'
 
 export const mockAccountModel = (): AddAccount.Model => ({
   accessToken: faker.random.uuid(),
-  name: faker.name.findName()
+  name: faker.name.findName(),
+  isRestaurant: false
 })
 
 export const mockAuthenticationParams = (): Authentication.Params => ({

@@ -1,5 +1,5 @@
 import faker from 'faker'
-import { LoadFoodsByRestaurant } from '@/domain/usecases'
+import { LoadFoodsByRestaurant, SaveFood } from '@/domain/usecases'
 import { FoodModel } from '../models'
 import { mockRestaurantModel } from './mock-restaurant'
 
@@ -13,6 +13,13 @@ export const mockFoodModel = (): LoadFoodsByRestaurant.Model => ({
   restaurant: mockRestaurantModel()
 })
 
+export const mockSaveFoodParams = (): SaveFood.Params => ({
+  name: faker.name.findName(),
+  description: faker.random.words(6),
+  price: faker.random.number(),
+  type: faker.random.words(2)
+})
+
 export const mockFoodModelList = (): LoadFoodsByRestaurant.Model[] => [mockFoodModel()]
 
 export class LoadFoodsByRestaurantSpy implements LoadFoodsByRestaurant {
@@ -22,5 +29,17 @@ export class LoadFoodsByRestaurantSpy implements LoadFoodsByRestaurant {
   async loadByRestaurants (): Promise<FoodModel[]> {
     this.callsCount++
     return Promise.resolve(this.foodsResult)
+  }
+}
+
+export class SaveFoodSpy implements SaveFood {
+  callsCount = 0
+  foodResult = mockFoodModel()
+  params = null
+
+  async save (params: SaveFood.Params): Promise<FoodModel> {
+    this.callsCount++
+    this.params = params
+    return Promise.resolve(this.foodResult)
   }
 }
