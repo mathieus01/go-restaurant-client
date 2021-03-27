@@ -3,38 +3,28 @@
 .restaurantNewFoodItem {
   display: flex;
   flex-direction: column;
-  flex-basis: 48%;
-  padding: 20px;
-  margin-bottom: 24px;
-  border: 1px solid $borderColor;
-  border-radius: 4px;
-  background-color: $white;
+  padding: 10px 30px;
+  width: 100%;
+
+  .foodItemTitle {
+    margin-bottom: 20px;
+  }
 
   .foodFields {
     display: flex;
+    flex-direction: column;
     img {
-      width: 146px;
-      height: 146px;
-      border-radius: 6px;
+      align-self: center;
+      width: 126px;
+      height: 126px;
+      border-radius: 50%;
       object-fit: cover;
-      margin-right: 20px;
+      margin-bottom: 10px;
     }
     .inputFoodFields {
       display: flex;
       flex-direction: column;
       width: 100%;
-      .inputFoodNamePrice {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-
-        .foodInput {
-          &:nth-child(2n) {
-            margin-left: 15px;
-            width: 50%;
-          }
-        }
-      }
       .foodInput {
         width: 100%;
         margin-top: 10px;
@@ -53,16 +43,21 @@
       }
       
       .foodTextArea {
-        margin-top: 20px;
+        margin-top: 10px;
         input {
           height: 60px;
-
         }
       }
     }
-
   }
 
+  .error {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    color: $primary;
+    font-weight: 400;
+  }
   .newFoodFooter {
     display: flex;
     margin-top: 20px;

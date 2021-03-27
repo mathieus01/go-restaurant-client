@@ -11,15 +11,28 @@
     align-items: center;
     height: 100%;
   }
+
+  .container {
+    display: flex;
+    height: 100%;
+
+    .saveFoodContent {
+      display: flex;
+      flex-basis: 430px;
+      box-shadow: -3px 0 10px -5px rgba($black, .3);
+    }
+  }
+
   .accountDetailContent {
     display: flex;
     flex-direction: column;
     align-self: center;
     width: 100%;
-    max-width: 1280px;
+    max-width: calc(1366px - 430px);
+    margin: 20px auto 0px;
+    width: 100%;
     flex-grow: 1;
     padding: 0px 30px 40px;
-    margin: 20px 0px 0px;
     overflow-y: auto;
     max-height: 90vh;
     height: 100%;

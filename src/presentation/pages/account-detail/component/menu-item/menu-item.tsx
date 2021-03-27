@@ -14,7 +14,7 @@ const MenuItem: React.FC<Props> = ({ food }: Props) => {
       <div>
         <h3 data-testid="food-name">{food.name}</h3>
         <span data-testid="food-description">{food.description}</span>
-        <strong data-testid="food-price">${`R$ ${food.price},00`}</strong>
+        <strong data-testid="food-price">{`R$ ${food.price},00`}</strong>
       </div>
     </li>
   )
