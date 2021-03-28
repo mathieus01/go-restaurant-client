@@ -26,7 +26,7 @@ describe('RemoteUpdateOrderStatus', () => {
     }
     await sut.updateOrderStatus({ orderId, status })
     expect(httpClientSpy.body).toEqual({ status })
-    expect(httpClientSpy.url).toBe(`${url}/${orderId}`)
+    expect(httpClientSpy.url).toBe(`${url}/${orderId}/status`)
     expect(httpClientSpy.method).toBe('put')
   })
   test('Should throw UnexpectedError if HttpClient returns 500', async () => {

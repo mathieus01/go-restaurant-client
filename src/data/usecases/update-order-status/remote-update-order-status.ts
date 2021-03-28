@@ -11,7 +11,7 @@ export class RemoteUpdateOrderStatus implements UpdateOrderStatus {
   async updateOrderStatus (params: UpdateOrderStatus.Params): Promise<void> {
     const { orderId, status } = params
     const httpResponse = await this.httpClient.request({
-      url: `${this.url}/${orderId}`,
+      url: `${this.url}/${orderId}/status`,
       body: { status },
       method: 'put'
     })
