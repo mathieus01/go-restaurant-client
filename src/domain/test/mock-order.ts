@@ -1,4 +1,4 @@
-import { AddOrder, LoadOrderById, LoadOrders } from '@/domain/usecases'
+import { AddOrder, LoadOrderById, LoadOrders, UpdateOrderStatus } from '@/domain/usecases'
 import { OrderModel } from '@/domain/models/order-model'
 import faker from 'faker'
 import { FoodOrderModel } from '../models/food-order'
@@ -11,6 +11,10 @@ export const mockAddOrderParams = (): AddOrder.Model => ({
     amount: 1,
     observation: faker.random.words(4)
   }]
+})
+export const mockUpdateOrderStatusParams = (): UpdateOrderStatus.Params => ({
+  orderId: faker.random.number(5),
+  status: faker.random.number(5)
 })
 
 export const mockFoodsOrdersModel = (): FoodOrderModel => ({
