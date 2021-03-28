@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { LoadOrders } from '@/domain/usecases'
+import { LoadOrders, UpdateOrderStatus } from '@/domain/usecases'
 import { Error, Header } from '@/presentation/components'
 import Styles from './order-list-styles.scss'
 import { List } from './component'
 import { useErrorHandler } from '@/presentation/hooks'
+import { OrderContext } from '@/presentation/contexts'
 
 type Props = {
   loadOrders: LoadOrders
+  updateOrderStatus: UpdateOrderStatus
 }
 
-const OrderList: React.FC<Props> = ({ loadOrders }: Props) => {
+const OrderList: React.FC<Props> = ({ loadOrders, updateOrderStatus }: Props) => {
   const [state, setState] = useState({
     orders: [] as LoadOrders.Model[],
     error: '',
@@ -37,7 +39,11 @@ const OrderList: React.FC<Props> = ({ loadOrders }: Props) => {
         <h2>Pedidos</h2>
         {state.error
           ? <Error error={state.error} reload={reload} />
-          : <List orders={state.orders} loading={state.reload} />
+          : (
+            <OrderContext.Provider value={{ updateOrderStatus, handleError, reload }}>
+              <List orders={state.orders} loading={state.reload} />
+            </OrderContext.Provider>
+          )
         }
       </div>
     </div>
