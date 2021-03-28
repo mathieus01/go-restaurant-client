@@ -3,7 +3,7 @@ import { Router } from 'react-router-dom'
 import { ApiContext } from '@/presentation/contexts'
 import { createMemoryHistory, MemoryHistory } from 'history'
 import { fireEvent, render, screen, waitFor, act } from '@testing-library/react'
-import { AddOrderSpy, LoadOrdersSpy, mockAccountModel } from '@/domain/test'
+import { AddOrderSpy, LoadOrdersSpy, mockAccountModel, mockAccountRestaurantModel, mockOrderModel, UpdateOrderStatusSpy } from '@/domain/test'
 import { AccountModel } from '@/domain/models'
 import { OrderList } from '..'
 import { AccessDeniedError, UnexpectedError } from '@/domain/errors'
@@ -13,20 +13,22 @@ type SutTypes = {
   addOrderSpy: AddOrderSpy
   history: MemoryHistory
   setCurrentAccountMock: (account: AccountModel) => void
+  updateOrderStatusSpy: UpdateOrderStatusSpy
 }
 
 const makeSut = (loadOrdersSpy = new LoadOrdersSpy()): SutTypes => {
   const history = createMemoryHistory({ initialEntries: ['/', '/orders/any_id'], initialIndex: 1 })
   const setCurrentAccountMock = jest.fn()
   const addOrderSpy = new AddOrderSpy()
+  const updateOrderStatusSpy = new UpdateOrderStatusSpy()
   render(
-    <ApiContext.Provider value={{ setCurrentAccount: setCurrentAccountMock, getCurrentAccount: () => mockAccountModel(), addOrder: addOrderSpy }}>
+    <ApiContext.Provider value={{ setCurrentAccount: setCurrentAccountMock, getCurrentAccount: () => mockAccountRestaurantModel(), addOrder: addOrderSpy }}>
       <Router history={history}>
-        <OrderList loadOrders={loadOrdersSpy} />
+        <OrderList loadOrders={loadOrdersSpy} updateOrderStatus={updateOrderStatusSpy} />
       </Router>
     </ApiContext.Provider>
   )
-  return { loadOrdersSpy, history, setCurrentAccountMock, addOrderSpy }
+  return { loadOrdersSpy, history, setCurrentAccountMock, addOrderSpy, updateOrderStatusSpy }
 }
 
 describe('OrderList Component', () => {
@@ -73,5 +75,99 @@ describe('OrderList Component', () => {
     fireEvent.click(screen.getByTestId('reload'))
     expect(loadOrdersSpy.callsCount).toBe(2)
     await waitFor(() => screen.getByTestId('header'))
+  })
+  test('Should show order order-item-status-created if user is restaurant and status of order is CRIADA', async () => {
+    const order = mockOrderModel()
+    order.status = 'CRIADA'
+    const loadOrdersSpy = new LoadOrdersSpy()
+    loadOrdersSpy.orders = [order]
+    makeSut(loadOrdersSpy)
+    await waitFor(() => screen.getByTestId('header'))
+    expect(screen.getByTestId('order-item-status-created')).toBeInTheDocument()
+  })
+  test('Should show order order-item-status-approved if user is restaurant and status of order is APROVADA', async () => {
+    const order = mockOrderModel()
+    order.status = 'APROVADA'
+    const loadOrdersSpy = new LoadOrdersSpy()
+    loadOrdersSpy.orders = [order]
+    makeSut(loadOrdersSpy)
+    await waitFor(() => screen.getByTestId('header'))
+    expect(screen.getByTestId('order-item-status-approved')).toBeInTheDocument()
+  })
+  test('Should call UpdateOrderStatus with correct values if order is CRIADA', async () => {
+    const order = mockOrderModel()
+    order.status = 'CRIADA'
+    const loadOrdersSpy = new LoadOrdersSpy()
+    loadOrdersSpy.orders = [order]
+    const { updateOrderStatusSpy } = makeSut(loadOrdersSpy)
+    await waitFor(() => screen.getByTestId('header'))
+    fireEvent.click(screen.getByTestId('approve-order'))
+    expect(updateOrderStatusSpy.params).toEqual({
+      orderId: order.id,
+      status: 2
+    })
+  })
+  test('Should call UpdateOrderStatus with correct values if order is CRIADA and order is canceled', async () => {
+    const order = mockOrderModel()
+    order.status = 'CRIADA'
+    const loadOrdersSpy = new LoadOrdersSpy()
+    loadOrdersSpy.orders = [order]
+    const { updateOrderStatusSpy } = makeSut(loadOrdersSpy)
+    await waitFor(() => screen.getByTestId('header'))
+    fireEvent.click(screen.getByTestId('cancel-order'))
+    expect(updateOrderStatusSpy.params).toEqual({
+      orderId: order.id,
+      status: 5
+    })
+  })
+  test('Should call UpdateOrderStatus with correct values if order is APROVADA', async () => {
+    const order = mockOrderModel()
+    order.status = 'APROVADA'
+    const loadOrdersSpy = new LoadOrdersSpy()
+    loadOrdersSpy.orders = [order]
+    const { updateOrderStatusSpy } = makeSut(loadOrdersSpy)
+    await waitFor(() => screen.getByTestId('header'))
+    fireEvent.click(screen.getByTestId('complete-order'))
+    expect(updateOrderStatusSpy.params).toEqual({
+      orderId: order.id,
+      status: 4
+    })
+  })
+  test('Should call UpdateOrderStatus with correct values if order is CRIADA and order is canceled', async () => {
+    const order = mockOrderModel()
+    order.status = 'APROVADA'
+    const loadOrdersSpy = new LoadOrdersSpy()
+    loadOrdersSpy.orders = [order]
+    const { updateOrderStatusSpy } = makeSut(loadOrdersSpy)
+    await waitFor(() => screen.getByTestId('header'))
+    fireEvent.click(screen.getByTestId('cancel-order'))
+    expect(updateOrderStatusSpy.params).toEqual({
+      orderId: order.id,
+      status: 5
+    })
+  })
+  test('Should present error if UpdateOrderStatus throw an error', async () => {
+    const order = mockOrderModel()
+    order.status = 'APROVADA'
+    const loadOrdersSpy = new LoadOrdersSpy()
+    loadOrdersSpy.orders = [order]
+    const { updateOrderStatusSpy } = makeSut(loadOrdersSpy)
+    const error = new UnexpectedError()
+    jest.spyOn(updateOrderStatusSpy, 'updateOrderStatus').mockRejectedValueOnce(error)
+    await waitFor(() => screen.getByTestId('header'))
+    fireEvent.click(screen.getByTestId('cancel-order'))
+    await waitFor(() => screen.getByTestId('header'))
+    expect(screen.getByTestId('error')).toHaveTextContent(error.message)
+  })
+  test('Should reload order page if UpdateOrderStatus succeds', async () => {
+    const order = mockOrderModel()
+    order.status = 'APROVADA'
+    const loadOrdersSpy = new LoadOrdersSpy()
+    loadOrdersSpy.orders = [order]
+    makeSut(loadOrdersSpy)
+    await waitFor(() => screen.getByTestId('header'))
+    fireEvent.click(screen.getByTestId('cancel-order'))
+    await waitFor(() => screen.getByTestId('header'))
+    expect(loadOrdersSpy.callsCount).toEqual(4)
   })
 })

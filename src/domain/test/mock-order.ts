@@ -51,6 +51,17 @@ export class AddOrderSpy implements AddOrder {
   }
 }
 
+export class UpdateOrderStatusSpy implements UpdateOrderStatus {
+  callsCount = 0
+  params = null
+
+  async updateOrderStatus (params: UpdateOrderStatus.Params): Promise<void> {
+    this.callsCount++
+    this.params = params
+    return Promise.resolve()
+  }
+}
+
 export class LoadOrderByIdSpy implements LoadOrderById {
   callsCount = 0
   order = mockOrderModel()
